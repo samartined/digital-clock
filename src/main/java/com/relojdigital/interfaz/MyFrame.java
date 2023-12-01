@@ -21,7 +21,7 @@ public class MyFrame extends JFrame {
         // Obtenemos el tamaño de la pantalla
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        // Calcular el ancho de la ventana para que ocupe el 60% de la pantalla
+        // Calcular el ancho de la ventana pqara que ocupe el 60% de la pantalla
         int windowWidth = (int) (screenSize.width * 0.6);
 
         this.setSize(windowWidth, windowWidth); // Tamaño de la ventana
