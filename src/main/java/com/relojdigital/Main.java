@@ -1,4 +1,4 @@
-package com;
+package com.relojdigital;
 
 import com.relojdigital.interfaz.MyFrame;
 
