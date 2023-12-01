@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,7 +18,8 @@ import com.relojdigital.back.ClockHandler;
 
 public class MyFrame extends JFrame {
 
-    private JLabel timeLabel;
+    private JLabel timeLabel, chronometerLabel;
+    private JButton startButton, pauseButton, stopButton;
 
     public MyFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +57,7 @@ public class MyFrame extends JFrame {
 
         panel.add(timeLabel, BorderLayout.CENTER);
 
-        add(panel);
+        this.add(panel);
 
         // Hacer visible la ventana después de iniciar el reloj
         setVisible(true);
