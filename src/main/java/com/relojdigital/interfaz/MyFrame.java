@@ -35,10 +35,14 @@ public class MyFrame extends JFrame {
         timeLabel.setOpaque(true);
 
         this.add(timeLabel);
-        this.setVisible(true);
+    }
 
+    public void startClock() {
         // Crear una instancia del manejador del reloj y ejecutarlo en un hilo separado
         ClockHandler clockHandler = new ClockHandler(timeLabel);
         new Thread(clockHandler).start();
+
+        // Hacer visible la ventana después de iniciar el reloj
+        this.setVisible(true);
     }
 }
