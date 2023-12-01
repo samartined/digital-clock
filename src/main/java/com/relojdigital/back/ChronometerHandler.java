@@ -32,15 +32,15 @@ public class ChronometerHandler implements Runnable {
         }
     }
 
-    private void pause() {
+    public void pause() {
         paused = true;
     }
 
-    private void resume() {
+    public void resume() {
         paused = false;
     }
 
-    private void stop() {
+    public void stop() {
         running = false;
     }
 

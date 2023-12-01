@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,8 +17,7 @@ import com.relojdigital.back.ClockHandler;
 
 public class MyFrame extends JFrame {
 
-    private JLabel timeLabel, chronometerLabel;
-    private JButton startButton, pauseButton, stopButton;
+    private JLabel timeLabel;
 
     public MyFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +30,7 @@ public class MyFrame extends JFrame {
         int windowWidth = (int) (screenSize.width * 0.6);
 
         setSize(windowWidth, windowWidth); // Tamaño de la ventana
-        setResizable(false); // No se puede redimensionar
+        setResizable(true); // No se puede redimensionar
         setLocationRelativeTo(null); // Centrar la ventana
 
         // Panel para contenido con fondo gradiente
@@ -50,17 +48,41 @@ public class MyFrame extends JFrame {
         panel.setLayout(new BorderLayout());
 
         // Agregar el timeLabel al panel
-        timeLabel = new JLabel();
+        timeLabel = new JLabel("00:00:00");
         timeLabel.setFont(new Font("Arial", Font.BOLD, 100));
+        timeLabel.setForeground(Color.WHITE);
         timeLabel.setHorizontalAlignment(JLabel.CENTER);
-        timeLabel.setForeground(new Color(0x00FF00));
 
+        // Ubica la etiqueta en el centro del panel
         panel.add(timeLabel, BorderLayout.CENTER);
-
-        this.add(panel);
 
         // Hacer visible la ventana después de iniciar el reloj
         setVisible(true);
+
+        // Panel para botones del cronómetro
+        JPanel chronometerButtonPanel = new JPanel();
+        chronometerButtonPanel.setLayout(new BorderLayout());
+
+        // Etiqueta para indicar que son los botones del cronómetro
+        JLabel chronometerLabel = new JLabel("Cronómetro");
+        chronometerLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        chronometerLabel.setForeground(Color.WHITE);
+        chronometerLabel.setHorizontalAlignment(JLabel.CENTER);
+        chronometerButtonPanel.add(chronometerLabel, BorderLayout.NORTH);
+
+        // Panel para botones
+        chronometerButtonPanel = new ChronometerPanel();
+        add(chronometerButtonPanel, BorderLayout.SOUTH);
+
+        // Agregar la etiqueta al frame
+        add(panel);
+
+        // Hacer visible la ventana después de iniciar el reloj
+        this.setVisible(true);
+
+        // Iniciar el reloj digital
+        startClock();
+
     }
 
     public void startClock() {
