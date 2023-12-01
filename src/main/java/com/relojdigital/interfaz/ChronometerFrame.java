@@ -6,32 +6,24 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.relojdigital.back.ClockHandler;
+import com.relojdigital.back.ChronometerHandler;
 
-public class MyFrame extends JFrame {
+public class ChronometerFrame extends JFrame {
 
     private JLabel timeLabel;
+    private ChronometerHandler chronometerHandler;
 
-    public MyFrame() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Reloj Digital");
-
-        // Obtenemos el tamaño de la pantalla
-        java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // Calcular el ancho de la ventana para que ocupe el 60% de la pantalla
-        int windowWidth = (int) (screenSize.width * 0.6);
-
-        setSize(windowWidth, windowWidth); // Tamaño de la ventana
-        setResizable(true); // No se puede redimensionar
-        setLocationRelativeTo(null); // Centrar la ventana
+    public ChronometerFrame(MyFrame parentFrame) {
+        setTitle("Cronómetro");
+        setSize(parentFrame.getWidth(), parentFrame.getHeight());
+        setLocationRelativeTo(parentFrame);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cerrar solo esta ventana al salir
 
         // Panel para contenido con fondo gradiente
         JPanel panel = new JPanel() {
@@ -56,14 +48,11 @@ public class MyFrame extends JFrame {
         // Ubica la etiqueta en el centro del panel
         panel.add(timeLabel, BorderLayout.CENTER);
 
-        // Hacer visible la ventana después de iniciar el reloj
-        setVisible(true);
-
         // Panel para botones del cronómetro
         JPanel buttonPanel = new JPanel();
-        JButton startChronometerButton = new JButton("Iniciar Cronómetro");
-        buttonPanel.add(startChronometerButton);
-        startChronometerButton.addActionListener(e -> startChronometer());
+        JButton stopChronometerButton = new JButton("Detener Cronómetro");
+        buttonPanel.add(stopChronometerButton);
+        stopChronometerButton.addActionListener(e -> stopChronometer(parentFrame));
 
         // Agregar el panel de botones al sur del panel de contenido
         panel.add(buttonPanel, BorderLayout.SOUTH);
@@ -71,22 +60,21 @@ public class MyFrame extends JFrame {
         // Agregar el panel de contenido al frame
         add(panel);
 
-        // Hacer visible la ventana después de iniciar el reloj
-        this.setVisible(true);
-
-        // Iniciar el reloj digital
-        startClock();
-    }
-
-    private void startClock() {
-        // Crear una instancia del manejador del reloj y ejecutarlo en un hilo separado
-        ClockHandler clockHandler = new ClockHandler(timeLabel);
-        new Thread(clockHandler).start();
+        // Iniciar el cronómetro
+        startChronometer();
     }
 
     private void startChronometer() {
-        // Crear una instancia de ChronometerFrame al iniciar el cronómetro
-        ChronometerFrame chronometerFrame = new ChronometerFrame(this);
-        chronometerFrame.setVisible(true);
+        chronometerHandler = new ChronometerHandler(timeLabel);
+        new Thread(chronometerHandler).start();
+    }
+
+    private void stopChronometer(MyFrame parentFrame) {
+        // Detener el cronómetro y cerrar la ventana del cronómetro
+        chronometerHandler.stop();
+        dispose();
+
+        // Mostrar nuevamente el reloj en la ventana principal
+        parentFrame.setVisible(true);
     }
 }

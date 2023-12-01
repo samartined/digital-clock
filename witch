@@ -1,0 +1,16 @@
+* [33m293e41a[m[33m ([m[1;36mHEAD -> [m[1;32mfuncionalities[m[33m, [m[1;31morigin/interface-developing[m[33m, [m[1;32minterface-developing[m[33m)[m Adding buttons of chronometer in a separated module
+*   [33m64b5ea0[m Merge branch 'funcionalities' into interface-developing
+[32m|[m[33m\[m  
+[32m|[m * [33m8a1a24c[m Chronometer added
+* [33m|[m [33m81bd7e4[m Adding buttons of chronometer
+* [33m|[m [33m744d48e[m Gradient background added, and font and its size has been changed too.
+[33m|[m[33m/[m  
+*   [33m6aeef0c[m[33m ([m[1;31morigin/funcionalities[m[33m)[m Merge branch 'funcionalities' into interface-developing
+[34m|[m[35m\[m  
+[34m|[m * [33m5fc122c[m Improving modularization of the main renaming it as App.java
+* [35m|[m [33m84ed6dd[m Merging funcionalities on the interface
+[35m|[m[35m/[m  
+* [33mbe5b1ee[m Contains ClockHandler class to manage time funcionality of updating time
+* [33m2fbf795[m Developing interface in separated modules of the funcionalities
+* [33mb6a69cc[m First version of interface created. It remains to adjust the windowsscreen to the content of the clock and fullfill the requirements
+* [33m75d6ff5[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Initial commit

@@ -1,5 +1,3 @@
-// ChronometerPanel.java
-
 package com.relojdigital.interfaz;
 
 import java.awt.BorderLayout;
@@ -28,6 +26,13 @@ public class ChronometerPanel extends JPanel {
         chronometerLabel.setHorizontalAlignment(JLabel.CENTER);
         add(chronometerLabel, BorderLayout.NORTH);
 
+        // Inicializar la etiqueta para mostrar el tiempo
+        timeLabel = new JLabel("00:00:00");
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 100));
+        timeLabel.setForeground(Color.WHITE);
+        timeLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(timeLabel, BorderLayout.CENTER);
+
         // Panel para botones
         JPanel buttonPanel = new JPanel();
         startButton = new JButton("Iniciar");
@@ -54,12 +59,24 @@ public class ChronometerPanel extends JPanel {
         buttonPanel.add(stopButton);
 
         // Agregar el panel de botones al centro del panel de cronómetro
-        add(buttonPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Mostrar los botones de cronómetro al inicio
+        showChronometerButtons(true);
+    }
+
+    private void showChronometerButtons(boolean show) {
+        startButton.setVisible(show);
+        pauseButton.setVisible(show);
+        stopButton.setVisible(show);
     }
 
     private void startChronometer() {
         chronometerHandler = new ChronometerHandler(timeLabel);
         new Thread(chronometerHandler).start();
+
+        // Deshabilitar el botón de inicio y habilitar los botones de pausa y detener
+        showChronometerButtons(false);
     }
 
     private void pauseChronometer() {
@@ -71,6 +88,8 @@ public class ChronometerPanel extends JPanel {
     private void stopChronometer() {
         if (chronometerHandler != null) {
             chronometerHandler.stop();
+            // Habilitar el botón de inicio y deshabilitar los botones de pausa y detener
+            showChronometerButtons(true);
         }
     }
 }

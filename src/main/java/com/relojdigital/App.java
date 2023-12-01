@@ -11,9 +11,6 @@ public class App {
 
     private static void launchApp() {
         // Inicializa y muestra la ventana principal
-        MyFrame frame = new MyFrame();
-
-        // Iniciar el reloj digital
-        frame.startClock();
+        new MyFrame();
     }
 }

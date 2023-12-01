@@ -10,6 +10,9 @@ public class ChronometerHandler implements Runnable {
     private JLabel timeLabel;
 
     public ChronometerHandler(JLabel timeLabel) {
+        if (timeLabel == null) {
+            throw new IllegalArgumentException("timeLabel cannot be null");
+        }
         this.timeLabel = timeLabel;
         this.running = true;
         this.paused = false;
@@ -45,11 +48,14 @@ public class ChronometerHandler implements Runnable {
     }
 
     private void updateTimeLabel() {
-        long hours = elapsedTime / 3600;
-        long minutes = (elapsedTime % 3600) / 60;
-        long seconds = elapsedTime % 60;
+        // Verificamos si timeLabel es null antes de intentar actualizarlo
+        if (timeLabel != null) {
+            long hours = elapsedTime / 3600;
+            long minutes = (elapsedTime % 3600) / 60;
+            long seconds = elapsedTime % 60;
 
-        String time = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        timeLabel.setText(time);
+            String time = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            SwingUtilities.invokeLater(() -> timeLabel.setText(time));
+        }
     }
 }
