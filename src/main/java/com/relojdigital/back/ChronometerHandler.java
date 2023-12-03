@@ -47,6 +47,10 @@ public class ChronometerHandler implements Runnable {
         running = false;
     }
 
+    public boolean isPaused() {
+        return paused;
+    }
+
     private void updateTimeLabel() {
         // Verificamos si timeLabel es null antes de intentar actualizarlo
         if (timeLabel != null) {

@@ -7,6 +7,7 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,7 +51,26 @@ public class ChronometerFrame extends JFrame {
 
         // Panel para botones del cronómetro
         JPanel buttonPanel = new JPanel();
-        JButton stopChronometerButton = new JButton("Detener Cronómetro");
+
+        // Colores y estilo del panel de botones
+        buttonPanel.setBackground(new Color(20, 20, 20));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+
+        // Botón para pausar/reanudar el cronómetro
+        JButton pauseChronometerButton = ButtonsStyler.customizeButton("Pausar / Reanudar", new Color(50, 205, 50), 16,
+                210, 40);
+        buttonPanel.add(pauseChronometerButton);
+        pauseChronometerButton.addActionListener(e -> {
+            if (chronometerHandler.isPaused()) {
+                chronometerHandler.resume();
+            } else {
+                chronometerHandler.pause();
+            }
+        });
+
+        // Botón para detener el cronómetro
+        JButton stopChronometerButton = ButtonsStyler.customizeButton("Detener", new Color(50, 205, 50), 16,
+                210, 40);
         buttonPanel.add(stopChronometerButton);
         stopChronometerButton.addActionListener(e -> stopChronometer(parentFrame));
 

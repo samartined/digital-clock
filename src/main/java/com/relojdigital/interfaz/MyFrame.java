@@ -6,8 +6,12 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,9 +65,22 @@ public class MyFrame extends JFrame {
 
         // Panel para botones del cronómetro
         JPanel buttonPanel = new JPanel();
-        JButton startChronometerButton = new JButton("Iniciar Cronómetro");
+        JButton startChronometerButton = ButtonsStyler.customizeButton("Iniciar Cronómetro", new Color(50, 205, 50), 16,
+                210, 40);
+
         buttonPanel.add(startChronometerButton);
         startChronometerButton.addActionListener(e -> startChronometer());
+
+        // Colores y estilo del panel de botones
+        buttonPanel.setBackground(new Color(20, 20, 20));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+
+        // Uso GridBagLayout para más control sobre el diseño
+        buttonPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10); // Espacio entre botones
 
         // Agregar el panel de botones al sur del panel de contenido
         panel.add(buttonPanel, BorderLayout.SOUTH);
