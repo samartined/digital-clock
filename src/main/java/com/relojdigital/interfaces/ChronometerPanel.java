@@ -1,4 +1,4 @@
-package com.relojdigital.interfaz;
+package com.relojdigital.interfaces;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

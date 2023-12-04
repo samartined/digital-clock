@@ -1,6 +1,6 @@
 package com.relojdigital;
 
-import com.relojdigital.interfaz.MyFrame;
+import com.relojdigital.interfaces.MyFrame;
 
 public class App {
 
