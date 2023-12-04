@@ -24,13 +24,19 @@ public class AlarmHandler {
 
     public void checkAlarm() {
         Calendar currentTime = Calendar.getInstance();
+        System.out.println("Checking Alarm - Current Time: " + currentTime.getTime());
+        System.out.println("Checking Alarm - Alarm Time: " + this.alarmTime.getTime());
+
         if (currentTime.get(Calendar.HOUR_OF_DAY) == this.alarmTime.get(Calendar.HOUR_OF_DAY) &&
                 currentTime.get(Calendar.MINUTE) == this.alarmTime.get(Calendar.MINUTE)) {
+            System.out.println("Alarm Triggered!");
+            triggerAlarm();
         }
     }
 
     private void triggerAlarm() {
-        JOptionPane.showMessageDialog(null, alarmTime);
+        System.out.println("Alarm Triggered - Showing Message");
+        JOptionPane.showMessageDialog(null, "Alarm Triggered!"); // Asegúrate de que este mensaje se muestre
         selectAndPlayAlarmSound();
     }
 
