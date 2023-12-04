@@ -8,16 +8,19 @@ public class ClockHandler implements Runnable {
 
     private SimpleDateFormat timeFormat;
     private JLabel timeLabel;
+    private AlarmHandler alarmHandler;
 
-    public ClockHandler(JLabel timeLabel) {
+    public ClockHandler(JLabel timeLabel, AlarmHandler alarmHandler) {
         this.timeLabel = timeLabel;
         this.timeFormat = new SimpleDateFormat("hh:mm:ss a");
+        this.alarmHandler = alarmHandler;
     }
 
     @Override
     public void run() {
         while (true) {
             updateTime();
+            checkAlarm();
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -29,5 +32,12 @@ public class ClockHandler implements Runnable {
     private void updateTime() {
         String time = timeFormat.format(new java.util.Date().getTime());
         timeLabel.setText(time);
+    }
+
+    private void checkAlarm() {
+        // Verificamos si la alarma está activada
+        if (alarmHandler != null) {
+            alarmHandler.checkAlarm();
+        }
     }
 }

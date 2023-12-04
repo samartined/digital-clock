@@ -17,11 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.relojdigital.back.AlarmHandler;
 import com.relojdigital.back.ClockHandler;
 
 public class MyFrame extends JFrame {
 
     private JLabel timeLabel;
+    private AlarmHandler alarmHandler;
 
     public MyFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,6 +87,11 @@ public class MyFrame extends JFrame {
         // Agregar el panel de botones al sur del panel de contenido
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
+        JButton setAlarmButton = ButtonsStyler.customizeButton("Configurar Alarma", new Color(255, 165, 0), 16, 210,
+                40);
+        buttonPanel.add(setAlarmButton);
+        setAlarmButton.addActionListener(e -> new AlarmFrame(alarmHandler));
+
         // Agregar el panel de contenido al frame
         add(panel);
 
@@ -93,11 +100,13 @@ public class MyFrame extends JFrame {
 
         // Iniciar el reloj digital
         startClock();
+
+        alarmHandler = new AlarmHandler();
     }
 
     private void startClock() {
         // Crear una instancia del manejador del reloj y ejecutarlo en un hilo separado
-        ClockHandler clockHandler = new ClockHandler(timeLabel);
+        ClockHandler clockHandler = new ClockHandler(timeLabel, alarmHandler);
         new Thread(clockHandler).start();
     }
 
