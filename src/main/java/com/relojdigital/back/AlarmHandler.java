@@ -2,12 +2,12 @@ package com.relojdigital.back;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 public class AlarmHandler {
     private Calendar alarmTime;
@@ -15,11 +15,21 @@ public class AlarmHandler {
     public AlarmHandler() {
         this.alarmTime = Calendar.getInstance();
         this.alarmTime.set(Calendar.SECOND, 0);
+        startAlarmChecking();
     }
 
     public void setAlarmTime(int hour, int minute) {
         this.alarmTime.set(Calendar.HOUR_OF_DAY, hour);
         this.alarmTime.set(Calendar.MINUTE, minute);
+    }
+
+    private void startAlarmChecking() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                checkAlarm();
+            }
+        }, 0, 1000); // Verificar cada segundo
     }
 
     public void checkAlarm() {
@@ -29,44 +39,24 @@ public class AlarmHandler {
 
         if (currentTime.get(Calendar.HOUR_OF_DAY) == this.alarmTime.get(Calendar.HOUR_OF_DAY) &&
                 currentTime.get(Calendar.MINUTE) == this.alarmTime.get(Calendar.MINUTE)) {
-            System.out.println("Alarm Triggered!");
-            triggerAlarm();
+            playSystemAlarmSound();
         }
     }
 
-    private void triggerAlarm() {
-        System.out.println("Alarm Triggered - Showing Message");
-        JOptionPane.showMessageDialog(null, "Alarm Triggered!"); // Asegúrate de que este mensaje se muestre
-        selectAndPlayAlarmSound();
-    }
+    private void playSystemAlarmSound() {
+        File systemSound = SoundSystem.getSystemSound();
 
-    // Damos al usuario la posibilidad de seleccionar un sonido de alarma
-    private void selectAndPlayAlarmSound() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Selecciona el sonido de la alarma");
-
-        // Para filtrar por archivos de sonido
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.isDirectory() || f.getName().toLowerCase().endsWith(".wav");
-            }
-
-            @Override
-            public String getDescription() {
-                return "Archivos de sonido (*.wav)";
-            }
-        });
-
-        int result = fileChooser.showOpenDialog(null);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            playAlarmSound(selectedFile);
+        if (systemSound != null) {
+            playAlarmSound(systemSound);
+        } else {
+            System.out.println("No system sound available. Playing default alarm sound.");
+            // Si no hay un sonido de sistema disponible, reproduce un sonido de alarma
+            // predeterminado
+            // Puedes agregar aquí tu lógica para reproducir un sonido de alarma
+            // predeterminado
         }
     }
 
-    // Reproducimos el sonido de alarma seleccionado
     private void playAlarmSound(File soundFile) {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);

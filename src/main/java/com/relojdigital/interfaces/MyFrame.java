@@ -23,7 +23,7 @@ import com.relojdigital.back.ClockHandler;
 public class MyFrame extends JFrame {
 
     private JLabel timeLabel;
-    private AlarmHandler alarmHandler;
+    private AlarmHandler alarmHandler = new AlarmHandler();
 
     public MyFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,11 +97,10 @@ public class MyFrame extends JFrame {
 
         // Hacer visible la ventana después de iniciar el reloj
         this.setVisible(true);
-
+        System.out.println("Alarma creada.");
         // Iniciar el reloj digital
         startClock();
 
-        alarmHandler = new AlarmHandler();
     }
 
     private void startClock() {

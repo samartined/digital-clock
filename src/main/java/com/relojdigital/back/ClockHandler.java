@@ -20,6 +20,7 @@ public class ClockHandler implements Runnable {
     public void run() {
         while (true) {
             updateTime();
+            alarmHandler = new AlarmHandler();
             checkAlarm();
             try {
                 Thread.sleep(1000);
@@ -36,7 +37,9 @@ public class ClockHandler implements Runnable {
 
     private void checkAlarm() {
         // Verificamos si la alarma está activada
+
         if (alarmHandler != null) {
+            System.out.println("Verificando alarma...");
             alarmHandler.checkAlarm();
         }
     }
